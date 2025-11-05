@@ -117,16 +117,41 @@
     </div>
   </div>
 </section>
-
-
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-     <img src="" alt="Feria" width="800px" height="600px">
-      <div class="carousel-caption d-none d-md-block">
-        <h5></h5>
-        <p></p>
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4"> 
+      
+      <div class="col-6 col-md-3">
+        <img src="{{ url_for('static', filename='image/3.jpg') }}" 
+             alt="Imagen 1" 
+             class="img-fluid rounded shadow-sm">
       </div>
+      
+      <div class="col-6 col-md-3">
+        <img src="{{ url_for('static', filename='image/4.jpg') }}" 
+             alt="Imagen 2" 
+             class="img-fluid rounded shadow-sm">
+      </div>
+      
+      <div class="col-6 col-md-3">
+        <img src="{{ url_for('static', filename='image/5.jpg') }}" 
+             alt="Imagen 3" 
+             class="img-fluid rounded shadow-sm">
+      </div>
+      
+      <div class="col-6 col-md-3">
+        <img src="{{ url_for('static', filename='image/6.jpg') }}" 
+             alt="Imagen 4" 
+             class="img-fluid rounded shadow-sm">
+      </div>
+      
     </div>
+  </div>
+</section>
+   <footer>
+    <p class = "mb-0">&copy;Stinze Reyes Dylan y Aguilar Bautista Diego</p> 
+</footer>
+</main>
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"></script>
 </body>
 </html>

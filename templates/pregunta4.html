@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<div class="container text-center mt-5">
+    <div class="row align-items-start">
+        <div class="col"></div>
+        <div class="col">
+            <div class="card shadow rounded-3 p-3 text-start" style="background-color: #b7aba4">
+                <h5 class="card-title mb-4 text-center">Pregunta 4</h5>
+                <p class="text-center text-muted mb-3">Alguna intolerancia</p>
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                {% for categoria, mensaje in messages %}
+                <div class="alert alert-danger py-1">{{ mensaje }}</div>
+                {% endfor %}
+                {% endif %}
+                {% endwith %}
+
+                <form method="POST" action="/pregunta4">
+
+                    <label class="form-label">Opciones:</label><br />
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta4" value="perder" />
+                        <label class="form-check-label">Intolerancia a la lactosa</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta4" value="mantener" />
+                        <label class="form-check-label">Intolerancia a la fructosa</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta4" value="ganar" />
+                        <label class="form-check-label">Intolerancia al gluten</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="pregunta4" value="otro" />
+                        <label class="form-check-label"> Otro</label>
+                    </div>
+
+                    <button type="submit" class="btn w-100 mt-3"
+                        style="background-color: #8F7570; border-color: #8F7570;">
+                        Siguiente
+                    </button>
+
+                </form>
+
+            </div>
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+{% endblock %}

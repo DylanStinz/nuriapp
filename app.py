@@ -1,11 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
-app = Flask(__name__)
+app = Flask(_name_) 
 
 USUARIOS_REGISTRADOS = {
     "hola@gmail.com": {
         "password": "holamundo",
-        "nombre": "Juan Perez"
+        "nombre": "Juan Perez",
+         "altura_cm":"178cm",
+        "peso_actual_kg":"70kg",
+         "peso_objetivo_kg":"80kg",
+        "nivel_actividad": 'muy_activo',
+        "objetivo_salud":'ganar_musculo',
+        "meta_semanal":'ganar_1kg' 
     }
 }
 
@@ -18,6 +24,10 @@ def index():
 @app.route('/calcula')
 def calc():
     return render_template('calculadora.html')
+
+@app.route('/usuario')
+def usuario():
+    return render_template('usuario.html')
 
 @app.route("/crear", methods=["GET", "POST"])
 def crear():
@@ -117,6 +127,11 @@ def validalogin():
             if usuario["password"] == passwor:
                 session["usuario_email"] = email
                 session["usuario_nombre"] = usuario["nombre"]
+                session["peso"] = usuario["peso_actual_kg"]
+                session["altura"] = usuario["altura_cm"]
+                session["pesoO"] =usuario["peso_objetivo_kg"]
+                session["act"] = usuario["nivel_actividad"]
+                session["obj"] = usuario[ "objetivo_salud"]
                 session["logueado"] = True
                 return redirect(url_for("index"))
             else:
@@ -126,5 +141,5 @@ def validalogin():
 
     return redirect(url_for("inicio"))
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     app.run(debug=True)

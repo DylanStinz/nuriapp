@@ -56,8 +56,11 @@
                     >Calculadora</a
                   >
                 </li>
+                </li>
+              
                    {% if session.get('logueado') %}
                 <a class="nav-link text-dark fw-semibold" href="{{ url_for('inicio') }}">Cerrar Sesión</a>
+                <a class="nav-link text-dark fw-semibold" href="{{ url_for('usuario') }}">Perfil de usuario</a>
                  <span class="nav-link text-dark fw-semibold">Hola {{ session.get('usuario_nombre') }}</span>
             {% else %}
                 <a class="nav-link text-dark fw-semibold" href="{{ url_for('crear') }}">Registrarse</a>
@@ -364,4 +367,3 @@
     ></script>
  </body>
 </html>
-

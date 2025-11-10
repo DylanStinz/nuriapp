@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
-app = Flask(_name_) 
+app = Flask(__name__) 
 
 USUARIOS_REGISTRADOS = {
     "hola@gmail.com": {
@@ -141,5 +141,5 @@ def validalogin():
 
     return redirect(url_for("inicio"))
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     app.run(debug=True)

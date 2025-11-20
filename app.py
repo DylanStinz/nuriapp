@@ -22,7 +22,8 @@ def index():
     return render_template('base.html')
 
 @app.route('/calcula')
-def calc():
+def calculadora():
+    
     return render_template('calculadora.html')
 
 @app.route('/usuario')

@@ -26,6 +26,89 @@ def calculadora():
     
     return render_template('calculadora.html')
 
+@app.route("/imc", methods=["GET", "POST"])
+def imc():
+    if request.method == "POST":
+        peso = float(request.form["peso"])
+        altura_cm = float(request.form["altura"])
+        altura_m = altura_cm / 100
+        imc_value = peso / (altura_m ** 2)
+        if imc_value < 18.5:
+            estado = "Bajo peso"
+        elif imc_value < 25:
+            estado = "Normal"
+        elif imc_value < 30:
+            estado = "Sobrepeso"
+        else:
+            estado = "Obesidad"
+        return render_template("imc.html", imc=imc_value, estado=estado)
+    return render_template("imc.html")
+
+
+# ---------------- TMB --------------------
+@app.route("/tmb", methods=["GET", "POST"])
+def tmb():
+    if request.method == "POST":
+        peso = float(request.form["peso"])
+        altura = float(request.form["altura"])
+        edad = int(request.form["edad"])
+        sexo = request.form["sexo"]
+        if sexo == "hombre":
+            tmb_value = 10*peso + 6.25*altura - 5*edad + 5
+        else:
+            tmb_value = 10*peso + 6.25*altura - 5*edad - 161
+        return render_template("TMB.html", tmb=tmb_value)
+    return render_template("TMB.html")
+
+@app.route("/gct", methods=["GET", "POST"])
+def gct():
+    if request.method == "POST":
+        tmb = float(request.form["tmb"])
+        actividad = request.form["actividad"]
+        factores = {
+            "sedentario": 1.2,
+            "ligero": 1.375,
+            "moderado": 1.55,
+            "activo": 1.725,
+            "muy_activo": 1.9
+        }
+        gct_value = tmb * factores[actividad]
+        return render_template("gct.html", gct=gct_value)
+    return render_template("gct.html")
+
+
+@app.route("/peso_ideal", methods=["GET", "POST"])
+def peso_ideal():
+    if request.method == "POST":
+        altura_cm = float(request.form["altura"])
+        sexo = request.form["sexo"]
+        altura_in = altura_cm / 2.54
+        if sexo == "hombre":
+            ideal = 50 + 2.3 * (altura_in - 60)
+        else:
+            ideal = 45.5 + 2.3 * (altura_in - 60)
+        return render_template("peso_ideal.html", ideal=ideal)
+    return render_template("peso_ideal.html")
+
+
+
+
+@app.route("/macros", methods=["GET", "POST"])
+def macros():
+    if request.method == "POST":
+        calorias = float(request.form["calorias"])
+        objetivo = request.form["objetivo"]
+        perfiles = {
+            "perder_grasa": {"p": 0.30, "c": 0.40, "g": 0.30},
+            "mantenimiento": {"p": 0.25, "c": 0.50, "g": 0.25},
+            "ganar_musculo": {"p": 0.30, "c": 0.50, "g": 0.20}
+        }
+        p = (calorias * perfiles[objetivo]["p"]) / 4
+        c = (calorias * perfiles[objetivo]["c"]) / 4
+        g = (calorias * perfiles[objetivo]["g"]) / 9
+        return render_template("macros.html", p=p, c=c, g=g)
+    return render_template("macros.html")
+
 @app.route('/usuario')
 def usuario():
     return render_template('usuario.html')

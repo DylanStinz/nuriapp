@@ -1,31 +1,25 @@
 {% extends "base.html" %}
 {% block contenido %}
-<body>
 
-    
-    <section>
-        <div class="card shadow rounded-3 p-4 text-start" style="display: flex; justify-content: center; align-items: center; background-color: #b7aba4 " >
+<section>
+    <div class="card shadow rounded-3 p-4 text-start" style="display: flex; justify-content: center; align-items: center; background-color: #b7aba4;">
         <h1>Calculadoras</h1>
-    <div style="width: 100%; height: 200px; display: flex; justify-content: center; align-items: center;">
-        
-        <div style="margin-right: 10px;">
-            <button type="submit" class="btn btn-card" class="btn btn-success w-100 mt-3" style="background-color: #8F7570; border-color: #8F7570;">Índice de Masa Corporal (IMC)</button>
-        </div>
-        <div style="margin-right: 10px;">
-            <button type="submit" class="btn btn-card" class="btn btn-success w-100 mt-3" style="background-color: #8F7570; border-color: #8F7570;">Tasa Metabólica Basal (TMB)</button>
-        </div>
-        <div style="margin-right: 10px;">
-            <button type="submit" class="btn btn-card" class="btn btn-success w-100 mt-3" style="background-color: #8F7570; border-color: #8F7570;">Gasto Calórico Total (GCT)</button>
-        </div>
-        <div style="margin-right: 10px;">
-            <button type="submit" class="btn btn-card" class="btn btn-success w-100 mt-3" style="background-color: #8F7570; border-color: #8F7570;">Peso Corporal Ideal</button>
-        </div>
-        <div style="margin-right: 10px;">
-            <button type="submit" class="btn btn-card" class="btn btn-success w-100 mt-3" style="background-color: #8F7570; border-color: #8F7570;">Macronutrientes</button>
+
+        <div style="width: 100%; height: 200px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px;">
+            
+            <a href="{{ url_for('imc') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Índice de Masa Corporal (IMC)</a>
+
+            <a href="{{ url_for('tmb') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Tasa Metabólica Basal (TMB)</a>
+
+            <a href="{{ url_for('gct') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Gasto Calórico Total (GCT)</a>
+
+            <a href="{{ url_for('peso_ideal') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Peso Corporal Ideal</a>
+
+            <a href="{{ url_for('macros') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Macronutrientes</a>
+
         </div>
     </div>
-    </div>
-    </section>
-</body>
+</section>
 
 {% endblock %}
+

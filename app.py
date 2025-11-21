@@ -32,7 +32,7 @@ def imc():
         peso = float(request.form["peso"])
         altura_cm = float(request.form["altura"])
         altura_m = altura_cm / 100
-        imc_value = peso / (altura_m ** 2)
+        imc_value  = round((peso / (altura_m ** 2)),2)
         if imc_value < 18.5:
             estado = "Bajo peso"
         elif imc_value < 25:
@@ -42,10 +42,11 @@ def imc():
         else:
             estado = "Obesidad"
         return render_template("imc.html", imc=imc_value, estado=estado)
+    
     return render_template("imc.html")
 
 
-# ---------------- TMB --------------------
+
 @app.route("/tmb", methods=["GET", "POST"])
 def tmb():
     if request.method == "POST":
@@ -54,9 +55,9 @@ def tmb():
         edad = int(request.form["edad"])
         sexo = request.form["sexo"]
         if sexo == "hombre":
-            tmb_value = 10*peso + 6.25*altura - 5*edad + 5
+            tmb_value = round((10*peso + 6.25*altura - 5*edad + 5),2)
         else:
-            tmb_value = 10*peso + 6.25*altura - 5*edad - 161
+            tmb_value = round((10*peso + 6.25*altura - 5*edad - 161),2)
         return render_template("TMB.html", tmb=tmb_value)
     return render_template("TMB.html")
 
@@ -72,7 +73,7 @@ def gct():
             "activo": 1.725,
             "muy_activo": 1.9
         }
-        gct_value = tmb * factores[actividad]
+        gct_value = round((tmb * factores[actividad]),2)
         return render_template("gct.html", gct=gct_value)
     return render_template("gct.html")
 

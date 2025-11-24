@@ -28,11 +28,15 @@ def calculadora():
 
 @app.route("/imc", methods=["GET", "POST"])
 def imc():
+    mostrar_imagen = False
+    reproducir_audio = False
+
     if request.method == "POST":
         peso = float(request.form["peso"])
         altura_cm = float(request.form["altura"])
         altura_m = altura_cm / 100
-        imc_value  = round((peso / (altura_m ** 2)),2)
+        imc_value  = round((peso / (altura_m ** 2)), 2)
+
         if imc_value < 18.5:
             estado = "Bajo peso"
         elif imc_value < 25:
@@ -41,8 +45,20 @@ def imc():
             estado = "Sobrepeso"
         else:
             estado = "Obesidad"
-        return render_template("imc.html", imc=imc_value, estado=estado)
-    
+
+        # Si el estado es obesidad → mostrar imagen + música
+        if estado == "Obesidad":
+            mostrar_imagen = True
+            reproducir_audio = True
+
+        return render_template(
+            "imc.html",
+            imc=imc_value,
+            estado=estado,
+            mostrar_imagen=mostrar_imagen,
+            reproducir_audio=reproducir_audio
+        )
+
     return render_template("imc.html")
 
 

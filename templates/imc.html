@@ -1,36 +1,41 @@
-{% extends "base.html" %}
+{% extends "calculadora.html" %}
 {% block contenido %}
 
+<br>
+<br>
 <section>
     <div class="card shadow rounded-3 p-4 text-start" style="background-color: #b7aba4">
 
         <h2 class="text-center mb-4">Calculadora de IMC</h2>
 
         <form method="POST">
-            <div style="width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 30px;">
-                <div style="width: 60%; display: flex; justify-content: space-between; text-align: left;">
+            <div style="width: 100%; display: flex; justify-content: center; margin-top: 30px;">
 
+                <div style="width: 60%; display: flex; justify-content: center; gap: 20px;">
 
+                    <input type="number"
+                        name="altura"
+                        class="btn btn-card"
+                        style="width: 48%; background-color: #e0dad7;"
+                        placeholder="Altura (cm)">
 
-                
-                    <div style="width: 48%;">
-                        <div style="margin-bottom: 15px;">
-                            <input type="number" name="altura" class="btn btn-card" style="width: 100%; background-color: #e0dad7;" placeholder="Altura (cm)">
-                        </div>
-                        <div style="margin-bottom: 15px;">
-                            <input type="number" name="peso" class="btn btn-card" style="width: 100%; background-color: #e0dad7;" placeholder="Peso (kg)">
-                        </div>
-                    </div>
+                    <input type="number"
+                        name="peso"
+                        class="btn btn-card"
+                        style="width: 48%; background-color: #e0dad7;"
+                        placeholder="Peso (kg)">
 
                 </div>
             </div>
 
-            <div style="width: 100%; display: flex; justify-content: center; align-items: center;">
-                <button type="submit" class="btn btn-card" style="width: 50%; background-color:#8F7570; color:white;">Calcular</button>
+            <div style="width: 100%; display: flex; justify-content: center; margin-top: 25px;">
+                <button type="submit" class="btn btn-card"
+                    style="width: 50%; background-color:#8F7570; color:white;">
+                    Calcular
+                </button>
             </div>
         </form>
 
-    
         {% if imc %}
         <div class="mt-4 p-3 rounded" style="background-color:#e0dad7;">
             <h5>Resultados:</h5>
@@ -39,6 +44,17 @@
         </div>
         {% endif %}
 
+        {% if mostrar_imagen %}
+        <div class="text-center mt-4">
+            <img src="{{ url_for('static', filename='image/20.jpg') }}" width="300">
+        </div>
+        {% endif %}
+        
+        {% if reproducir_audio %}
+        <audio autoplay>
+            <source src="{{ url_for('static', filename='audio/gelda.mp3') }}" type="audio/mpeg">
+        </audio>
+        {% endif %}
     </div>
 </section>
 

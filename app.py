@@ -1,4 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from flask_mysqldb import MySQL
+from werkzeug.security import generate_password_hash
+import re
 
 app = Flask(__name__) 
 
@@ -46,7 +49,6 @@ def imc():
         else:
             estado = "Obesidad"
 
-        # Si el estado es obesidad → mostrar imagen + música
         if estado == "Obesidad":
             mostrar_imagen = True
             reproducir_audio = True

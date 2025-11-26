@@ -7,7 +7,6 @@ import re
 
 app = Flask(__name__) 
 
-# Usuario de prueba (lo dejo, no lo quito)
 USUARIOS_REGISTRADOS = {
     "hola@gmail.com": {
         "password": "holamundo",
@@ -23,17 +22,14 @@ USUARIOS_REGISTRADOS = {
 
 app.config["SECRET_KEY"] = "una_clave_muy_larga_y_dificil_de_adivinar"
 
-# ==============================
-#   CONFIGURACIÓN MYSQL
-# ==============================
+
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'              # tu usuario
-app.config['MYSQL_PASSWORD'] = ''   # tu contraseña
-app.config['MYSQL_DB'] = 'fitbite'             # tu base
+app.config['MYSQL_USER'] = 'root'              
+app.config['MYSQL_PASSWORD'] = ''  
+app.config['MYSQL_DB'] = 'fitbite'         
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 
 mysql = MySQL(app)
-# ==============================
 
 
 @app.route('/')
@@ -165,7 +161,6 @@ def crear():
         peso_actual_kg   = request.form.get("peso_actual_kg")
         peso_objetivo_kg = request.form.get("peso_objetivo_kg")
 
-        # Validaciones básicas (igual que tú, solo ordenadas)
         if password != confirmPassword:
             error = "Las contraseñas no coinciden"
         elif not nombreCompleto or not email or not password:
@@ -175,10 +170,8 @@ def crear():
             flash(error, "error")
             return render_template("crear.html")
 
-        # 🔹 Encriptar contraseña antes de guardar
         password_hash = generate_password_hash(password)
 
-        # 🔹 Guardar usuario en la BD MySQL
         cursor = mysql.connection.cursor()
         cursor.execute("""
             INSERT INTO usuarios (
@@ -260,7 +253,6 @@ def pregunta5():
 
 @app.route("/login")
 def inicio():
-    # si ya está logueado, mejor mándalo a su perfil
     if session.get("logueado") == True:
         return redirect(url_for('usuario'))
     return render_template('login.html')
@@ -276,20 +268,17 @@ def validalogin():
             flash("Debe ingresar un email y una contraseña", "error")
             return redirect(url_for("inicio"))
 
-        # 🔹 1) Intentar buscar en la base de datos MySQL
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (email,))
         usuario = cursor.fetchone()
 
         if usuario:
-            # 🔹 Verificar contraseña encriptada
             if check_password_hash(usuario["password_hash"], passwor):
                 session["usuario_email"] = usuario["correo"]
                 session["usuario_nombre"] = usuario["nombre"] + " " + usuario["apellido"]
                 session["peso"] = usuario["actual"]
                 session["altura"] = usuario["altura"]
                 session["pesoO"] = usuario["objetivo"]
-                # Estos no existen en la tabla todavía, los dejamos por si luego los agregas
                 session["act"] = usuario.get("nivel_actividad") if isinstance(usuario, dict) else None
                 session["obj"] = usuario.get("objetivo_salud") if isinstance(usuario, dict) else None
                 session["logueado"] = True
@@ -298,7 +287,6 @@ def validalogin():
                 flash("Contraseña incorrecta", "error")
                 return redirect(url_for("inicio"))
 
-        # 🔹 2) Si no está en la BD, probar con el diccionario de prueba (para no romper tu demo)
         elif email in USUARIOS_REGISTRADOS:
             usuario = USUARIOS_REGISTRADOS[email]
             if usuario["password"] == passwor:
@@ -320,9 +308,9 @@ def validalogin():
 
 @app.route("/logout")
 def logout():
-    session.clear()  # borra toda la sesión
+    session.clear()  
     flash("Sesión cerrada correctamente.", "success")
-    return redirect(url_for("inicio"))  # te manda al login
+    return redirect(url_for("inicio")) 
 
 if __name__ == "__main__":
     app.run(debug=True)

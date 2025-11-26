@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block contenido %}
+{% extends "base.html" %}
+{% block contenido %}
 
 <section class="py-5">
   <div class="container">
@@ -9,6 +10,8 @@
           style="background-color: #b7aba4"
         >
           <div class="row g-0 align-items-center">
+            
+            <!-- Imagen izquierda -->
             <div class="col-md-5">
               <img
                 src="{{ url_for('static', filename='image/19.png') }}"
@@ -17,37 +20,51 @@
                 style="object-fit: cover"
               />
             </div>
+
+            <!-- Información del usuario -->
             <div class="col-md-7">
               <div class="card-body p-4 text-center text-md-start">
-                <h2 class="fw-bold mb-3">
-                  Bienvenido Juan Perez
-                </h2>
-                <h5 class="fw-bold mb-3">
-                  Informacion basica:
-                </h5>
-                <span class="text-dark fw-semibold"> Email:{{ session.get('usuario_email') }}</span> <br>
-                <span class="text-dark fw-semibold"> Peso actual:{{ session.get('peso') }}</span> <br>
-                <span class="text-dark fw-semibold"> Peso objetivo:{{ session.get('pesoO') }}</span> <br>
-                <span class="text-dark fw-semibold"> Altura:{{ session.get('altura') }}</span> <br>
-                <span class="text-dark fw-semibold"> Objetivo:{{ session.get('obj') }}</span> <br>
-                 <span class="text-dark fw-semibold">Nivel de actividad: {{ session.get('act') }}</span> <br>
-                <h5 class="fw-bold mb-3"> 
-                  Preferencias
-                </h5>
-                <p class="text-muted">
-                    Para mejorar mi salud en general
-                </p>
-                <p class="text-muted">
-                    Dormir mejor y sentirme con más energía
-                </p>
-                <p class="text-muted">
-                    Ninguno
-                </p>
-                <p class="text-muted">
-                    Ninguno
-                </p>
+
+                <!-- Bienvenida -->
+                <span class="text-dark fw-semibold">
+                  Bienvenido {{ session.get('usuario_nombre') }}
+                </span>
+                <br>
+
+                <!-- Informacion básica -->
+                <h5 class="fw-bold mb-3">Información básica:</h5>
+
+                <span class="text-dark fw-semibold">Email: {{ session.get('usuario_email') }}</span><br>
+                <span class="text-dark fw-semibold">Peso actual: {{ session.get('peso') }}</span><br>
+                <span class="text-dark fw-semibold">Peso objetivo: {{ session.get('pesoO') }}</span><br>
+                <span class="text-dark fw-semibold">Altura: {{ session.get('altura') }}</span><br>
+                <span class="text-dark fw-semibold">Objetivo: {{ session.get('objetivo') }}</span><br>
+                <span class="text-dark fw-semibold">Nivel de actividad: {{ session.get('act') }}</span><br>
+
+                <!-- Preferencias -->
+                <h5 class="fw-bold mt-4 mb-3">Preferencias</h5>
+
+                {% if respuestas %}
+                  
+                  <p class="text-muted">{{ respuestas.p1 }}</p>
+                  <p class="text-muted">{{ respuestas.p2 }}</p>
+                  <p class="text-muted">{{ respuestas.p3 }}</p>
+                  <p class="text-muted">{{ respuestas.p4 }}</p>
+                  <p class="text-muted">{{ respuestas.p5 }}</p>
+
+                {% else %}
+                  
+                  <p class="text-muted">Aún no has respondido el cuestionario.</p>
+                  
+                  <a href="{{ url_for('pregunta1') }}" class="btn btn-dark btn-sm">
+                    Responder ahora
+                  </a>
+
+                {% endif %}
+
               </div>
             </div>
+
           </div>
         </div>
       </div>

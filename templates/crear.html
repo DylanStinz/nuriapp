@@ -9,88 +9,129 @@
       <div class="card shadow rounded-3 p-4 text-start" style="background-color: #b7aba4">
         <h5 class="card-title mb-3 text-center">Crear nueva cuenta</h5>
         <p class="text-center text-muted mb-4">Es rápido y fácil.</p>
-<div class="container mt-4" >
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
+
+        <div class="container mt-4">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
                 <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-</div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
 
         <form method="POST" action="{{ url_for('crear') }}">
           <div class="row g-2">
             <div class="col">
               <div class="mb-3">
-                <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Nombre " style="background-color: #e0dad7"
-                  required minlength="3" maxlength="100" value="{{ request.form.get('nombre', '') }}" />
+                <input type="text" id="nombre" name="nombre" class="form-control"
+                       placeholder="Nombre" style="background-color: #e0dad7"
+                       required minlength="3" maxlength="100"
+                       value="{{ request.form.get('nombre', '') }}" />
               </div>
             </div>
             <div class="col">
               <div class="mb-3">
-                <input type="text" id="apellido" name="apellido" class="form-control" placeholder="Apellido" style="background-color: #e0dad7"
-                  required minlength="3" maxlength="100" value="{{ request.form.get('apellido', '') }}" />
+                <input type="text" id="apellido" name="apellido" class="form-control"
+                       placeholder="Apellido" style="background-color: #e0dad7"
+                       required minlength="3" maxlength="100"
+                       value="{{ request.form.get('apellido', '') }}" />
               </div>
             </div>
           </div>
 
           <div class="mb-3">
             <label class="form-label">Correo electrónico o número de móvil:</label>
-            <input type="email" id="email" name="email" class="form-control" required style="background-color: #e0dad7"
-              value="{{ request.form.get('email', '') }}" />
+            <input type="email" id="email" name="email" class="form-control"
+                   required style="background-color: #e0dad7"
+                   value="{{ request.form.get('email', '') }}" />
           </div>
 
           <div class="mb-3">
             <label class="form-label">Contraseña</label>
-            <input type="password" name="password" class="form-control" id="password" required style="background-color: #e0dad7"/>
+            <input type="password" name="password" class="form-control" id="password"
+                   required style="background-color: #e0dad7" />
           </div>
 
           <div class="mb-3">
             <label class="form-label">Confirmar contraseña</label>
-            <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" required style="background-color: #e0dad7"/>
+            <input type="password" name="confirmPassword" class="form-control" id="confirmPassword"
+                   required style="background-color: #e0dad7" />
           </div>
 
           <div class="mb-3">
             <label class="form-label">Fecha de nacimiento:</label>
-            <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento" required style="background-color: #e0dad7"
-              value="{{ request.form.get('fechaNacimiento', '') }}" />
+            <input type="date" class="form-control" name="fechaNacimiento" id="fechaNacimiento"
+                   required style="background-color: #e0dad7"
+                   value="{{ request.form.get('fechaNacimiento', '') }}" />
           </div>
 
-          <div class="mb-3" >
+          <div class="mb-3">
             <label class="form-label">Género:</label><br />
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="genero" value="mujer"
-                {% if request.form.get('genero') == 'mujer' %}checked{% endif %} />
+                     {% if request.form.get('genero') == 'mujer' %}checked{% endif %} />
               <label class="form-check-label">Mujer</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="genero" value="hombre"
-                {% if request.form.get('genero') == 'hombre' %}checked{% endif %} />
+                     {% if request.form.get('genero') == 'hombre' %}checked{% endif %} />
               <label class="form-check-label">Hombre</label>
             </div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" name="genero" value="personalizado"
-                {% if request.form.get('genero') == 'personalizado' %}checked{% endif %} />
+                     {% if request.form.get('genero') == 'personalizado' %}checked{% endif %} />
               <label class="form-check-label">Personalizado</label>
             </div>
-
           </div>
+
+<div class="row g-3 mt-2">
+
+  <div class="col-md-4">
+    <label class="form-label mb-1" for="altura_cm">Altura actual (cm):</label>
+    <input type="number" class="form-control" id="altura_cm" name="altura_cm"
+           style="background-color: #e0dad7"
+           min="50" max="250" step="1" required
+           value="{{ request.form.get('altura_cm', '') }}">
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label mb-1" for="peso_actual_kg">Peso actual (kg):</label>
+    <input type="number" class="form-control" id="peso_actual_kg" name="peso_actual_kg"
+           style="background-color: #e0dad7"
+           min="20" max="300" step="0.1" required
+           value="{{ request.form.get('peso_actual_kg', '') }}">
+  </div>
+
+  <div class="col-md-4">
+    <label class="form-label mb-1" for="peso_objetivo_kg">Peso objetivo (kg):</label>
+    <input type="number" class="form-control" id="peso_objetivo_kg" name="peso_objetivo_kg"
+           style="background-color: #e0dad7"
+           min="20" max="300" step="0.1" required
+           value="{{ request.form.get('peso_objetivo_kg', '') }}">
+  </div>
+
+</div>
+
 
           <p class="text-muted" style="font-size: 12px;">
             Al hacer clic en Registrarte, aceptas nuestras Condiciones, la Política de datos y la Política de cookies.
             Es posible que recibas notificaciones por SMS y puedes darte de baja en cualquier momento.
           </p>
 
-          <button type="submit" class="btn btn-success w-100 mt-3" style="background-color: #8F7570; border-color: #8F7570;">Siguiente</button>
+          <button type="submit" class="btn btn-success w-100 mt-3"
+                  style="background-color: #8F7570; border-color: #8F7570;">
+            Siguiente
+          </button>
         </form>
+
       </div>
     </div>
     <div class="col"></div>
   </div>
 </div>
 
-{% endblock %}
+{% endblock %}

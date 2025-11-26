@@ -1,24 +1,40 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+import pymysql
+pymysql.install_as_MySQLdb()
 from flask_mysqldb import MySQL
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 import re
 
 app = Flask(__name__) 
 
+# Usuario de prueba (lo dejo, no lo quito)
 USUARIOS_REGISTRADOS = {
     "hola@gmail.com": {
         "password": "holamundo",
         "nombre": "Juan Perez",
-         "altura_cm":"178cm",
-        "peso_actual_kg":"70kg",
-         "peso_objetivo_kg":"80kg",
+        "altura_cm": "178cm",
+        "peso_actual_kg": "70kg",
+        "peso_objetivo_kg": "80kg",
         "nivel_actividad": 'muy_activo',
-        "objetivo_salud":'ganar_musculo',
-        "meta_semanal":'ganar_1kg' 
+        "objetivo_salud": 'ganar_musculo',
+        "meta_semanal": 'ganar_1kg' 
     }
 }
 
 app.config["SECRET_KEY"] = "una_clave_muy_larga_y_dificil_de_adivinar"
+
+# ==============================
+#   CONFIGURACIÓN MYSQL
+# ==============================
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'              # tu usuario
+app.config['MYSQL_PASSWORD'] = ''   # tu contraseña
+app.config['MYSQL_DB'] = 'fitbite'             # tu base
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+
+mysql = MySQL(app)
+# ==============================
+
 
 @app.route('/')
 def index():
@@ -26,7 +42,6 @@ def index():
 
 @app.route('/calcula')
 def calculadora():
-    
     return render_template('calculadora.html')
 
 @app.route("/imc", methods=["GET", "POST"])
@@ -64,7 +79,6 @@ def imc():
     return render_template("imc.html")
 
 
-
 @app.route("/tmb", methods=["GET", "POST"])
 def tmb():
     if request.method == "POST":
@@ -78,6 +92,7 @@ def tmb():
             tmb_value = round((10*peso + 6.25*altura - 5*edad - 161),2)
         return render_template("TMB.html", tmb=tmb_value)
     return render_template("TMB.html")
+
 
 @app.route("/gct", methods=["GET", "POST"])
 def gct():
@@ -110,8 +125,6 @@ def peso_ideal():
     return render_template("peso_ideal.html")
 
 
-
-
 @app.route("/macros", methods=["GET", "POST"])
 def macros():
     if request.method == "POST":
@@ -128,8 +141,12 @@ def macros():
         return render_template("macros.html", p=p, c=c, g=g)
     return render_template("macros.html")
 
+
+@app.route('/usuario')
 @app.route('/usuario')
 def usuario():
+    if not session.get("logueado"):
+        return redirect(url_for("inicio")) 
     return render_template('usuario.html')
 
 @app.route("/crear", methods=["GET", "POST"])
@@ -144,14 +161,44 @@ def crear():
         fechaNacimiento = request.form.get("fechaNacimiento")
         genero = request.form.get("genero")
         genero_personalizado = request.form.get("genero_personalizado")
+        altura_cm        = request.form.get("altura_cm")
+        peso_actual_kg   = request.form.get("peso_actual_kg")
+        peso_objetivo_kg = request.form.get("peso_objetivo_kg")
 
+        # Validaciones básicas (igual que tú, solo ordenadas)
         if password != confirmPassword:
             error = "Las contraseñas no coinciden"
         elif not nombreCompleto or not email or not password:
             error = "Todos los campos obligatorios deben completarse."
+
         if error:
             flash(error, "error")
             return render_template("crear.html")
+
+        # 🔹 Encriptar contraseña antes de guardar
+        password_hash = generate_password_hash(password)
+
+        # 🔹 Guardar usuario en la BD MySQL
+        cursor = mysql.connection.cursor()
+        cursor.execute("""
+            INSERT INTO usuarios (
+                nombre, apellido, correo, password_hash, nacimiento,
+                genero, altura, actual, objetivo
+            ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)
+        """, (
+            nombreCompleto,
+            apellido,
+            email,
+            password_hash,
+            fechaNacimiento,
+            genero if genero != "personalizado" else "personalizado",
+            altura_cm,
+            peso_actual_kg,
+            peso_objetivo_kg
+        ))
+        mysql.connection.commit()
+
+        flash("Cuenta creada con éxito. Ahora responde unas preguntas.", "success")
         return redirect(url_for("pregunta1"))
 
     return render_template("crear.html")
@@ -178,6 +225,7 @@ def pregunta2():
         return redirect(url_for("pregunta3"))
     return render_template("pregunta2.html")
 
+
 @app.route("/pregunta3", methods=["GET", "POST"])
 def pregunta3():
     if request.method == "POST":
@@ -187,6 +235,7 @@ def pregunta3():
             return redirect(url_for("pregunta3"))
         return redirect(url_for("pregunta4"))
     return render_template("pregunta3.html")
+
 
 @app.route("/pregunta4", methods=["GET", "POST"])
 def pregunta4():
@@ -211,9 +260,9 @@ def pregunta5():
 
 @app.route("/login")
 def inicio():
+    # si ya está logueado, mejor mándalo a su perfil
     if session.get("logueado") == True:
-        session.clear()
-        return render_template('base.html')
+        return redirect(url_for('usuario'))
     return render_template('login.html')
 
 
@@ -225,6 +274,31 @@ def validalogin():
 
         if not email or not passwor:
             flash("Debe ingresar un email y una contraseña", "error")
+            return redirect(url_for("inicio"))
+
+        # 🔹 1) Intentar buscar en la base de datos MySQL
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (email,))
+        usuario = cursor.fetchone()
+
+        if usuario:
+            # 🔹 Verificar contraseña encriptada
+            if check_password_hash(usuario["password_hash"], passwor):
+                session["usuario_email"] = usuario["correo"]
+                session["usuario_nombre"] = usuario["nombre"] + " " + usuario["apellido"]
+                session["peso"] = usuario["actual"]
+                session["altura"] = usuario["altura"]
+                session["pesoO"] = usuario["objetivo"]
+                # Estos no existen en la tabla todavía, los dejamos por si luego los agregas
+                session["act"] = usuario.get("nivel_actividad") if isinstance(usuario, dict) else None
+                session["obj"] = usuario.get("objetivo_salud") if isinstance(usuario, dict) else None
+                session["logueado"] = True
+                return redirect(url_for("usuario"))
+            else:
+                flash("Contraseña incorrecta", "error")
+                return redirect(url_for("inicio"))
+
+        # 🔹 2) Si no está en la BD, probar con el diccionario de prueba (para no romper tu demo)
         elif email in USUARIOS_REGISTRADOS:
             usuario = USUARIOS_REGISTRADOS[email]
             if usuario["password"] == passwor:
@@ -232,17 +306,23 @@ def validalogin():
                 session["usuario_nombre"] = usuario["nombre"]
                 session["peso"] = usuario["peso_actual_kg"]
                 session["altura"] = usuario["altura_cm"]
-                session["pesoO"] =usuario["peso_objetivo_kg"]
+                session["pesoO"] = usuario["peso_objetivo_kg"]
                 session["act"] = usuario["nivel_actividad"]
-                session["obj"] = usuario[ "objetivo_salud"]
+                session["obj"] = usuario["objetivo_salud"]
                 session["logueado"] = True
-                return redirect(url_for("index"))
+                return redirect(url_for("usuario"))
             else:
                 flash("Contraseña incorrecta", "error")
         else:
             flash("El usuario no está registrado", "error")
 
     return redirect(url_for("inicio"))
+
+@app.route("/logout")
+def logout():
+    session.clear()  # borra toda la sesión
+    flash("Sesión cerrada correctamente.", "success")
+    return redirect(url_for("inicio"))  # te manda al login
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -253,6 +253,23 @@ def pregunta5():
         return redirect(url_for("index")) 
     return render_template("pregunta5.html")
 
+@app.route("/descarg")
+def pdf():
+    return render_template('descarg.html')
+
+
+@app.route("/recetas")
+def recetasParamancos():
+    return render_template('recetas.html')
+
+@app.route("/hidra")
+def Hydra():
+    return render_template('hidra.html')
+
+@app.route("/vm")
+def mitYvrd():
+    return render_template('vm.html')
+
 @app.route("/login")
 def inicio():
     if session.get("logueado") == True:

@@ -8,8 +8,8 @@ import requests
 
 app = Flask(__name__) 
 
-API_KEY = "KEt2KxXrP5arcpqYARbhnpuR2wrD2UlzH6IGTnxb"
-API_URL = "https://api.nal.usda.gov/fdc/v1/foods/search"
+API_KEY = "aac9bd7f35444ba5ba14e9de0a3a5aeb"
+API_URL = "https://api.spoonacular.com/recipes/complexSearch"
 
 USUARIOS_REGISTRADOS = {
     "hola@gmail.com": {
@@ -69,7 +69,7 @@ def imc():
         else:
             estado = "Obesidad"
             imagen_estado = "image/24.png"
-            reproducir_audio = True   # solo aquí
+            reproducir_audio = True   
 
         return render_template(
             "imc.html",
@@ -79,7 +79,6 @@ def imc():
             reproducir_audio=reproducir_audio
         )
 
-    # GET (cuando solo entras a la página)
     return render_template("imc.html")
 
 
@@ -279,6 +278,10 @@ def Hydra():
 def mitYvrd():
     return render_template('vm.html')
 
+@app.route("/consejos")
+def consejos():
+    return render_template('consejos.html')
+
 @app.route("/login")
 def inicio():
     if session.get("logueado") == True:
@@ -338,11 +341,11 @@ def validalogin():
 def logout():
     session.clear()  
     flash("Sesión cerrada correctamente.", "success")
-    return redirect(url_for("inicio")) 
+    return redirect(url_for("index")) 
 
 @app.route("/api", methods=["GET", "POST"])
 def api():
-    foods = []
+    foods = []   
     query = None
 
     if request.method == "POST":
@@ -352,16 +355,18 @@ def api():
             flash("Por favor, escribe un alimento para buscar.", "warning")
         else:
             params = {
-                "api_key": API_KEY,
+                "apiKey": API_KEY,          
                 "query": query,
-                "pageSize": 9
+                "number": 9,                
+                "addRecipeNutrition": True  
             }
 
             try:
                 response = requests.get(API_URL, params=params, timeout=10)
                 response.raise_for_status()
                 data = response.json()
-                foods = data.get("foods", [])
+
+                foods = data.get("results", [])
 
                 if not foods:
                     flash(f"No se encontraron resultados para '{query}'.", "info")
@@ -369,7 +374,10 @@ def api():
             except requests.exceptions.RequestException:
                 flash("Error al conectar con la API.", "danger")
 
-    return render_template("api.html", foods=foods, query=query)
+    return render_template("apiresultado.html", foods=foods, query=query)
+
+
+
 
 @app.route("/apiresultado", methods=["GET", "POST"])
 def apiresultado():

@@ -30,6 +30,7 @@
 
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
+              <a class="nav-link text-dark fw-semibold" href="/api">buscar</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-dark fw-semibold" href="/calcula">Calculadora</a>
@@ -255,10 +256,11 @@
               <img src="{{ url_for('static', filename='image/18.png') }}" alt="Bebidas" class="rounded-start-4"
                 style="width: 45%; height: 160px; object-fit: cover;">
               <div class="card-body text-center">
-                <button class="btn fw-semibold w-100"
-                  style="background-color: #b7aba4;  border-color: #b7aba4; color: black;">
-                  Preparación de comidas (Meal Prep)
-                </button>
+                <a class="btn fw-semibold w-100"
+                 href="/consejos"
+              style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
+              consejos
+              </a>
               </div>
             </div>
           </div>

@@ -1,97 +1,155 @@
 {% extends "base.html" %}
 {% block contenido %}
 
-<section class="container my-5">
-    <h2 class="mb-4">Recetas saludables para principiantes</h2>
-    <div class="row g-4">
+<section class="py-5">
+  <div class="row justify-content-center">
+    <div class="col-12 col-lg-10 col-xxl-9">
 
-       
-        <div class="col-md-6">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Ensalada de pollo y vegetales</h5>
-                    <p><strong>Ingredientes:</strong> 1 pechuga de pollo cocida y desmenuzada, 1 taza de lechuga, 1 tomate picado, ½ pepino en rodajas, 1 cucharadita de aceite de oliva, sal y pimienta al gusto.</p>
-                    <p><strong>Preparación:</strong></p>
-                    <ol>
-                        <li>Mezcla todos los vegetales en un bol.</li>
-                        <li>Agrega el pollo desmenuzado.</li>
-                        <li>Aliña con aceite, sal y pimienta.</li>
-                        <li>¡Listo para disfrutar!</li>
-                    </ol>
-                    <p>Tip: Puedes agregar aguacate o frutos secos para más sabor y grasas saludables.</p>
-                </div>
-            </div>
-        </div>
+      <div class="rounded-4 shadow-lg p-4 p-md-5 mb-4"
+           style="background: linear-gradient(20deg, #e0dad7, #b7aba4);">
+        <h1 class="fw-bold mb-1">Recetas Saludables</h1>
+        <h5 class="fw-semibold mb-3">Opciones rápidas, nutritivas y fáciles para principiantes</h5>
+        <p class="mb-0">Estas recetas están diseñadas para mejorar tu nutrición sin complicarte en la cocina.</p>
+      </div>
 
-      
-        <div class="col-md-6">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Batido de frutas</h5>
-                    <p><strong>Ingredientes:</strong> 1 plátano, ½ taza de fresas, 1 taza de leche o bebida vegetal, 1 cucharadita de miel (opcional).</p>
-                    <p><strong>Preparación:</strong></p>
-                    <ol>
-                        <li>Coloca todos los ingredientes en la licuadora.</li>
-                        <li>Licúa hasta obtener una mezcla homogénea.</li>
-                        <li>Sirve frío y disfruta.</li>
-                    </ol>
-                    <p>Tip: Puedes añadir espinaca para un batido verde lleno de nutrientes sin afectar mucho el sabor.</p>
-                </div>
-            </div>
-        </div>
+      <div class="row g-4">
 
-     
         <div class="col-md-6">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Huevos revueltos con vegetales</h5>
-                    <p><strong>Ingredientes:</strong> 2 huevos, ¼ de pimiento rojo picado, ¼ de cebolla picada, sal y pimienta al gusto, 1 cucharadita de aceite de oliva.</p>
-                    <p><strong>Preparación:</strong></p>
-                    <ol>
-                        <li>En una sartén, calienta el aceite y sofríe el pimiento y la cebolla hasta que estén tiernos.</li>
-                        <li>Bate los huevos y agrégalos a la sartén.</li>
-                        <li>Revuelve hasta que los huevos estén cocidos.</li>
-                        <li>Sazona con sal y pimienta.</li>
-                    </ol>
-                    <p>Tip: Puedes añadir espinaca o champiñones para más vitaminas y fibra.</p>
-                </div>
+          <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(80deg, #e0dad7, #b7aba4);">
+            <div class="card-body p-4">
+
+              <h4 class="fw-bold mb-2">Ensalada de pollo y vegetales</h4>
+              <p class="text-muted">
+                <strong>Ingredientes:</strong> pollo desmenuzado, lechuga, tomate, pepino, aceite de oliva, sal y pimienta.
+              </p>
+
+              <p class="fw-semibold">Preparación:</p>
+              <ol class="text-muted">
+                <li>Mezcla los vegetales.</li>
+                <li>Agrega el pollo.</li>
+                <li>Aliña con aceite, sal y pimienta.</li>
+                <li>Sirve y disfruta.</li>
+              </ol>
+
+              <p class="text-muted small mb-3">
+                Tip: Añade aguacate o frutos secos para más grasas saludables.
+              </p>
+
+              <img src="{{ url_for('static', filename='image/27.jpg') }}"
+                   class="img-fluid rounded-3 shadow-sm" alt="Ensalada">
             </div>
+          </div>
         </div>
 
         <div class="col-md-6">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Avena rápida para el desayuno</h5>
-                    <p><strong>Ingredientes:</strong> ½ taza de avena, 1 taza de leche o bebida vegetal, ½ plátano en rodajas, 1 cucharadita de miel o frutos secos.</p>
-                    <p><strong>Preparación:</strong></p>
-                    <ol>
-                        <li>Cocina la avena con la leche en una olla a fuego medio hasta que espese (aprox. 5 minutos).</li>
-                        <li>Sirve y agrega el plátano, miel y/o frutos secos por encima.</li>
-                    </ol>
-                    <p>Tip: Puedes añadir canela o cacao en polvo para darle más sabor sin añadir azúcar.</p>
-                </div>
-            </div>
-        </div>
+          <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(80deg, #e0dad7, #b7aba4);" >
+            <div class="card-body p-4">
 
+              <h4 class="fw-bold mb-2">Batido de frutas</h4>
+              <p class="text-muted">
+                <strong>Ingredientes:</strong> plátano, fresas, leche vegetal, miel.
+              </p>
+
+              <p class="fw-semibold">Preparación:</p>
+              <ol class="text-muted">
+                <li>Coloca todo en la licuadora.</li>
+                <li>Licúa hasta que quede homogéneo.</li>
+                <li>Sirve frío.</li>
+              </ol>
+
+              <p class="text-muted small mb-3">
+                Tip: Añade espinaca para más nutrientes sin cambiar el sabor.
+              </p>
+
+              <img src="{{ url_for('static', filename='image/28.jpg') }}"
+                   class="img-fluid rounded-3 shadow-sm" alt="Batido">
+            </div>
+          </div>
+        </div>
 
         <div class="col-md-6">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Tostadas integrales con aguacate</h5>
-                    <p><strong>Ingredientes:</strong> 2 rebanadas de pan integral, ½ aguacate, sal, pimienta y unas gotas de limón.</p>
-                    <p><strong>Preparación:</strong></p>
-                    <ol>
-                        <li>Tuesta el pan.</li>
-                        <li>Machaque el aguacate y úntalo sobre las rebanadas.</li>
-                        <li>Agrega sal, pimienta y limón al gusto.</li>
-                    </ol>
-                    <p>Tip: Puedes añadir tomate o huevo duro encima para más proteína.</p>
-                </div>
+          <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(80deg, #e0dad7, #b7aba4);">
+            <div class="card-body p-4">
+
+              <h4 class="fw-bold mb-2">Huevos revueltos con vegetales</h4>
+              <p class="text-muted">
+                <strong>Ingredientes:</strong> huevos, pimiento, cebolla, aceite, sal y pimienta.
+              </p>
+
+              <p class="fw-semibold">Preparación:</p>
+              <ol class="text-muted">
+                <li>Sofríe el pimiento y la cebolla.</li>
+                <li>Agrega los huevos batidos.</li>
+                <li>Revuelve hasta cocinar.</li>
+                <li>Sazona al gusto.</li>
+              </ol>
+
+              <p class="text-muted small mb-3">
+                Tip: Añade champiñones o espinaca.
+              </p>
+
+              <img src="{{ url_for('static', filename='image/29.jpg') }}"
+                   class="img-fluid rounded-3 shadow-sm" alt="Huevos">
             </div>
+          </div>
         </div>
 
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(80deg, #e0dad7, #b7aba4);">
+            <div class="card-body p-4">
+
+              <h4 class="fw-bold mb-2">Avena rápida</h4>
+              <p class="text-muted">
+                <strong>Ingredientes:</strong> avena, leche, plátano, miel o frutos secos.
+              </p>
+
+              <p class="fw-semibold">Preparación:</p>
+              <ol class="text-muted">
+                <li>Cocina la avena con la leche.</li>
+                <li>Agrega plátano y toppings al servir.</li>
+              </ol>
+
+              <p class="text-muted small mb-3">
+                Tip: Añade canela o cacao sin azúcar.
+              </p>
+
+              <img src="{{ url_for('static', filename='image/30.jpg') }}"
+                   class="img-fluid rounded-3 shadow-sm" alt="Avena">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(80deg, #e0dad7, #b7aba4);">
+            <div class="card-body p-4">
+
+              <h4 class="fw-bold mb-2">Tostadas integrales con aguacate</h4>
+              <p class="text-muted">
+                <strong>Ingredientes:</strong> pan integral, aguacate, sal, pimienta y limón.
+              </p>
+
+              <p class="fw-semibold">Preparación:</p>
+              <ol class="text-muted">
+                <li>Tuesta el pan.</li>
+                <li>Unta el aguacate.</li>
+                <li>Añade limón, sal y pimienta.</li>
+              </ol>
+
+              <p class="text-muted small mb-3">
+                Tip: Agrega tomate o huevo duro arriba.
+              </p>
+
+              <img src="{{ url_for('static', filename='image/31.jpg') }}"
+                   class="img-fluid rounded-3 shadow-sm" alt="Tostadas">
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </section>
 
-
 {% endblock %}
+
+

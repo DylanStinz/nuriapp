@@ -4,8 +4,12 @@ pymysql.install_as_MySQLdb()
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
+import requests
 
 app = Flask(__name__) 
+
+API_KEY = "KEt2KxXrP5arcpqYARbhnpuR2wrD2UlzH6IGTnxb"
+API_URL = "https://api.nal.usda.gov/fdc/v1/foods/search"
 
 USUARIOS_REGISTRADOS = {
     "hola@gmail.com": {
@@ -42,37 +46,42 @@ def calculadora():
 
 @app.route("/imc", methods=["GET", "POST"])
 def imc():
-    mostrar_imagen = False
+    imagen_estado = None
     reproducir_audio = False
+    estado = None
+    imc_value = None
 
     if request.method == "POST":
         peso = float(request.form["peso"])
         altura_cm = float(request.form["altura"])
         altura_m = altura_cm / 100
-        imc_value  = round((peso / (altura_m ** 2)), 2)
+        imc_value = round(peso / (altura_m ** 2), 2)
 
         if imc_value < 18.5:
             estado = "Bajo peso"
+            imagen_estado = "image/21.png"
         elif imc_value < 25:
             estado = "Normal"
+            imagen_estado = "image/22.png"
         elif imc_value < 30:
             estado = "Sobrepeso"
+            imagen_estado = "image/23.png"
         else:
             estado = "Obesidad"
-
-        if estado == "Obesidad":
-            mostrar_imagen = True
-            reproducir_audio = True
+            imagen_estado = "image/24.png"
+            reproducir_audio = True   # solo aquí
 
         return render_template(
             "imc.html",
             imc=imc_value,
             estado=estado,
-            mostrar_imagen=mostrar_imagen,
+            imagen_estado=imagen_estado,
             reproducir_audio=reproducir_audio
         )
 
+    # GET (cuando solo entras a la página)
     return render_template("imc.html")
+
 
 
 @app.route("/tmb", methods=["GET", "POST"])
@@ -330,6 +339,41 @@ def logout():
     session.clear()  
     flash("Sesión cerrada correctamente.", "success")
     return redirect(url_for("inicio")) 
+
+@app.route("/api", methods=["GET", "POST"])
+def api():
+    foods = []
+    query = None
+
+    if request.method == "POST":
+        query = request.form.get("query", "").strip()
+
+        if not query:
+            flash("Por favor, escribe un alimento para buscar.", "warning")
+        else:
+            params = {
+                "api_key": API_KEY,
+                "query": query,
+                "pageSize": 9
+            }
+
+            try:
+                response = requests.get(API_URL, params=params, timeout=10)
+                response.raise_for_status()
+                data = response.json()
+                foods = data.get("foods", [])
+
+                if not foods:
+                    flash(f"No se encontraron resultados para '{query}'.", "info")
+
+            except requests.exceptions.RequestException:
+                flash("Error al conectar con la API.", "danger")
+
+    return render_template("api.html", foods=foods, query=query)
+
+@app.route("/apiresultado", methods=["GET", "POST"])
+def apiresultado():
+    return render_template('apiresultado.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

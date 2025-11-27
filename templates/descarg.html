@@ -1,12 +1,152 @@
 {% extends "base.html" %}
 {% block contenido %}
 
-<iframe 
-    src="{{ url_for('static', filename='pdf/Hola memae.pdf') }}" 
-    width="100%" 
-    height="600px"
-    style="border:1px solid #ccc;">
-</iframe>
+<section class="py-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-10 col-xxl-9">
 
+            <div class="rounded-4 shadow-lg p-4 p-md-5 mb-4 "
+                style="background: linear-gradient(20deg, #e0dad7, #b7aba4);">
+                <h1 class="fw-bold mb-1">Rutinas básicas de ejercicio</h1>
+                <h5 class="fw-semibold mb-3">Empieza a moverte de forma segura y progresiva</h5>
+                <p class="mb-0">
+                    Una rutina bien estructurada no tiene que ser complicada. Lo importante es moverte de forma
+                    constante,
+                    trabajar todo el cuerpo y respetar tus tiempos de descanso.
+                </p>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4" style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-3">¿Cómo debe ser una rutina básica?</h3>
+                    <p class="text-muted">
+                        Una rutina de entrenamiento para la mayoría de las personas debe incluir tres partes clave:
+                    </p>
+                    <ul class="text-muted mb-3">
+                        <li><strong>Calentamiento (5–10 min):</strong> movimientos suaves para elevar la temperatura
+                            corporal y preparar articulaciones y músculos.</li>
+                        <li><strong>Parte principal (20–40 min):</strong> combinación de ejercicios de fuerza y cardio
+                            de acuerdo a tu nivel.</li>
+                        <li><strong>Vuelta a la calma (5–10 min):</strong> estiramientos ligeros y respiración para
+                            relajar el cuerpo.</li>
+                    </ul>
+                    <p class="text-muted mb-0">
+                        Lo ideal es entrenar entre <strong>3 y 5 días por semana</strong>, dejando al menos un día de
+                        descanso o trabajo ligero
+                        entre sesiones intensas.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4" style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-3">Ejemplos de rutinas según tu nivel</h3>
+
+                    <div class="mb-4">
+                        <h5 class="fw-semibold mb-2">Nivel principiante (3 días/semana)</h5>
+                        <ul class="text-muted mb-0">
+                            <li><strong>Día 1:</strong> caminata ligera 20 min, sentadillas sin peso, puentes de glúteo,
+                                plancha apoyando rodillas.</li>
+                            <li><strong>Día 2:</strong> descanso activo (caminar suave, estiramientos).</li>
+                            <li><strong>Día 3:</strong> saltos suaves en el lugar, remo con botella de agua, flexiones
+                                apoyando rodillas, abdominales básicos.</li>
+                            <li><strong>Día 4–7:</strong> repetir esquema o alternar con caminata y estiramientos.</li>
+                        </ul>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="fw-semibold mb-2">Nivel intermedio (3–4 días/semana)</h5>
+                        <ul class="text-muted mb-0">
+                            <li>Combinación de ejercicios de fuerza (sentadillas, zancadas, flexiones, remo) en 3–4
+                                series de 10–15 repeticiones.</li>
+                            <li>Cardio moderado (bicicleta, trote suave, cuerda) 20–30 minutos.</li>
+                            <li>1–2 días de descanso activo con movilidad y estiramientos.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h5 class="fw-semibold mb-2">Nivel avanzado (4–5 días/semana)</h5>
+                        <ul class="text-muted mb-0">
+                            <li>Rutinas divididas por grupos musculares (pierna, torso, empuje, jalón, core).</li>
+                            <li>Trabajo de alta intensidad (intervalos, sprints cortos) según condición física.</li>
+                            <li>Control de cargas, tiempos de descanso y progresión semanal.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4" style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-3">Videos de referencia por nivel</h3>
+                    <p class="text-muted">
+                        Estos videos pueden servir como guía visual. Elige el nivel que mejor se adapte a tu condición
+                        física actual.
+                    </p>
+
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="border rounded-4 h-100 p-3">
+                                <h5 class="fw-semibold mb-2">Nivel principiante</h5>
+                                <p class="text-muted small">
+                                    Movimientos básicos, sin impacto y enfocados en aprender la técnica.
+                                </p>
+                                <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+                                    <iframe src="https://www.youtube.com/embed/u1KxxgdPJEM" title="Rutina principiante"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="border rounded-4 h-100 p-3">
+                                <h5 class="fw-semibold mb-2">Nivel avanzado</h5>
+                                <p class="text-muted small">
+                                    Mayor intensidad, más repeticiones y algunas variaciones con salto o peso.
+                                </p>
+                                <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+                                    <iframe src="https://www.youtube.com/embed/wBtOM89nsXg" title="Rutina avanzada"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="border rounded-4 h-100 p-3">
+                                <h5 class="fw-semibold mb-2">Nivel experto</h5>
+                                <p class="text-muted small">
+                                    Entrenamientos exigentes, alta intensidad y complejidad técnica. Solo si ya tienes
+                                    experiencia.
+                                </p>
+                                <div class="ratio ratio-16x9 rounded-3 overflow-hidden">
+                                    <iframe src="https://www.youtube.com/embed/KXnOryN4ENc" title="Rutina experta"
+                                        allowfullscreen>
+                                    </iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+                <div class="card-body p-4">
+                    <h3 class="fw-bold mb-3">Guía descargable en PDF</h3>
+                    <p class="text-muted">
+                        Aquí puedes consultar o descargar la guía completa de rutinas y recomendaciones.
+                    </p>
+                    <div class="border rounded-3 overflow-hidden">
+                        <iframe src="{{ url_for('static', filename='pdf/pdf1.pdf') }}" width="100%" height="600px"
+                            style="border:0;">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
 {% endblock %}

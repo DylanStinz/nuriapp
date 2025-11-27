@@ -1,49 +1,132 @@
 {%extends "base.html"%}
 {%block contenido%}
+
 <section class="container my-5">
-    <h2 class="mb-4">Verdades sobre la nutrición</h2>
-    <ul class="list-group mb-4">
-        <li class="list-group-item">
-            <strong>Comer frutas y verduras es esencial:</strong> Aportan vitaminas, minerales, fibra y antioxidantes. Consumir al menos 5 porciones al día reduce riesgos de enfermedades crónicas.
-        </li>
-        <li class="list-group-item">
-            <strong>El exceso de azúcar y ultraprocesados es perjudicial:</strong> Contribuye a obesidad, diabetes tipo 2 y enfermedades cardiovasculares.
-        </li>
-        <li class="list-group-item">
-            <strong>El agua es fundamental:</strong> Mantiene la hidratación, la función renal y la regulación de la temperatura corporal.
-        </li>
-        <li class="list-group-item">
-            <strong>Las proteínas son importantes, pero en exceso no se necesitan:</strong> Ayudan al crecimiento y reparación muscular, pero la mayoría de personas obtienen suficiente de su dieta normal.
-        </li>
-        <li class="list-group-item">
-            <strong>El balance calórico importa:</strong> Ganar o perder peso depende de la relación entre calorías consumidas y gastadas.
-        </li>
-        <li class="list-group-item">
-            <strong>No hay “alimento milagroso”:</strong> Ningún alimento por sí solo previene enfermedades o quema grasa de manera especial.
-        </li>
-    </ul>
 
-    <h2 class="mb-4">Mitos sobre la nutrición</h2>
-    <ul class="list-group">
-        <li class="list-group-item">
-            <strong>“Comer de noche engorda”:</strong> No es la hora lo que importa, sino el total de calorías y la calidad de los alimentos.
-        </li>
-        <li class="list-group-item">
-            <strong>“Los carbohidratos engordan”:</strong> No todos los carbohidratos son iguales. Los integrales aportan energía y fibra; los refinados pueden ser problemáticos en exceso.
-        </li>
-        <li class="list-group-item">
-            <strong>“Hay alimentos que queman grasa”:</strong> No existen alimentos que quemen grasa directamente; solo ayudan a crear un déficit calórico si se combinan con dieta y ejercicio.
-        </li>
-        <li class="list-group-item">
-            <strong>“Las grasas son malas”:</strong> Las grasas saludables (aceite de oliva, frutos secos, aguacate, pescado) son esenciales para la salud.
-        </li>
-        <li class="list-group-item">
-            <strong>“Los suplementos reemplazan la comida”:</strong> Los suplementos no sustituyen una dieta equilibrada; son solo complementos cuando hay carencias.
-        </li>
-        <li class="list-group-item">
-            <strong>“Beber más de 3 litros de agua al día es obligatorio”:</strong> La cantidad necesaria depende de edad, clima, actividad física y estado de salud; no hay un número mágico universal.
-        </li>
-    </ul>
+    <div class="row g-4">
+
+        <!-- VERDADES -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0" style="background-color: #f5f0ec;">
+                <div class="card-body">
+                    <h2 class="mb-4 fw-bold text-dark">Verdades sobre la nutrición</h2>
+                    <ul class="list-group list-group-flush">
+
+                        <!-- Item -->
+                        <li class="list-group-item d-flex align-items-start" style="background-color: #f5f0ec;">
+                            <img src="{{ url_for('static', filename='image/25.png') }}" 
+                                 alt="check" class="me-3" style="width: 40px; height: 40px;">
+                            <div>
+                                <strong class="fw-bold" style="color: #5a4637; font-size: 1.15rem;">
+                                    Comer frutas y verduras es esencial:
+                                </strong>
+                                <p class="mb-0 text-dark">
+                                    Aportan vitaminas, minerales, fibra y antioxidantes.
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item d-flex align-items-start" style="background-color: #f5f0ec;">
+                            <img src="{{ url_for('static', filename='image/25.png') }}" 
+                                 alt="check" class="me-3" style="width: 40px; height: 40px;">
+                            <div>
+                                <strong class="fw-bold" style="color: #5a4637; font-size: 1.15rem;">
+                                    El exceso de azúcar y ultraprocesados es perjudicial:
+                                </strong>
+                                <p class="mb-0 text-dark">
+                                    Contribuye a obesidad, diabetes tipo 2 y enfermedades cardiovasculares.
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item d-flex align-items-start" style="background-color: #f5f0ec;">
+                            <img src="{{ url_for('static', filename='image/25.png') }}" 
+                                 alt="check" class="me-3" style="width: 40px; height: 40px;">
+                            <div>
+                                <strong class="fw-bold" style="color: #5a4637; font-size: 1.15rem;">
+                                    El agua es fundamental:
+                                </strong>
+                                <p class="mb-0 text-dark">
+                                    Mantiene hidratación, función renal y regula temperatura.
+                                </p>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item d-flex align-items-start" style="background-color: #f5f0ec;">
+                            <img src="{{ url_for('static', filename='image/25.png') }}" 
+                                 alt="check" class="me-3" style="width: 40px; height: 40px;">
+                            <div>
+                                <strong class="fw-bold" style="color: #5a4637; font-size: 1.15rem;">
+                                    Las proteínas son importantes:
+                                </strong>
+                                <p class="mb-0 text-dark">
+                                    Ayudan al músculo, pero la mayoría ya consume suficiente.
+                                </p>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- MITOS -->
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0" style="background-color: #f5f0ec;">
+                <div class="card-body">
+                    <h2 class="mb-4 fw-bold text-dark">Mitos sobre la nutrición</h2>
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item d-flex align-items-start" style="background-color: #f5f0ec;">
+                            <img src="{{ url_for('static', filename='image/26.png') }}" 
+                                 alt="wrong" class="me-3" style="width: 40px; height: 40px;">
+                            <div>
+                                <strong style="color: #7a2e2e; font-size: 1.15rem;">
+                                    “Comer de noche engorda”:
+                                </strong>
+                                <p class="mb-0 text-dark">Lo importante son las calorías totales, no la hora.</p>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item d-flex align-items-start" style="background-color: #f5f0ec;">
+                            <img src="{{ url_for('static', filename='image/26.png') }}" 
+                                 alt="wrong" class="me-3" style="width: 40px; height: 40px;">
+                            <div>
+                                <strong style="color: #7a2e2e; font-size: 1.15rem;">
+                                    “Los carbohidratos engordan”:
+                                </strong>
+                                <p class="mb-0 text-dark">Los integrales aportan energía y fibra.</p>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item d-flex align-items-start" style="background-color: #f5f0ec;">
+                            <img src="{{ url_for('static', filename='image/26.png') }}" 
+                                 alt="wrong" class="me-3" style="width: 40px; height: 40px;">
+                            <div>
+                                <strong style="color: #7a2e2e; font-size: 1.15rem;">
+                                    “Hay alimentos que queman grasa”:
+                                </strong>
+                                <p class="mb-0 text-dark">No existen como tal; lo importante es el déficit calórico.</p>
+                            </div>
+                        </li>
+
+                        <li class="list-group-item d-flex align-items-start" style="background-color: #f5f0ec;">
+                            <img src="{{ url_for('static', filename='image/26.png') }}" 
+                                 alt="wrong" class="me-3" style="width: 40px; height: 40px;">
+                            <div>
+                                <strong style="color: #7a2e2e; font-size: 1.15rem;">
+                                    “Las grasas son malas”:
+                                </strong>
+                                <p class="mb-0 text-dark">Las grasas saludables son necesarias.</p>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </section>
-
 {%endblock%}

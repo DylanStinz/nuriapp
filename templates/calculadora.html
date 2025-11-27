@@ -86,18 +86,25 @@
 <section>
     <div class="card shadow rounded-3 p-4 text-start" style="display: flex; justify-content: center; align-items: center; background-color: #b7aba4;">
         <h1>Calculadoras</h1>
+        <p class="mt-3 text-center fs-5" style="color: #3e3a37;">
+        Nuestras calculadoras han sido creadas para ofrecer análisis exactos basados en 
+         fórmulas científicas utilizadas por profesionales de la salud y el deporte.  
+         Obtén datos clave como tu IMC, TMB, Gasto Calórico Total y distribución óptima 
+        de macronutrientes.Conocer tus números es el primer paso para planificar una nutrición adecuada y un entrenamiento eficiente.
+</p>
+
 
         <div style="width: 100%; height: 200px; display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 15px;">
             
-            <a href="{{ url_for('imc') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Índice de Masa Corporal (IMC)</a>
+            <a href="{{ url_for('imc') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Índice de Masa Corporal (IMC) </a>
 
-            <a href="{{ url_for('tmb') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Tasa Metabólica Basal (TMB)</a>
-
-            <a href="{{ url_for('gct') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Gasto Calórico Total (GCT)</a>
+            <a href="{{ url_for('tmb') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Tasa Metabólica Basal (TMB) y Gasto Calórico Total (GCT)</a>
 
             <a href="{{ url_for('peso_ideal') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Peso Corporal Ideal</a>
 
-            <a href="{{ url_for('macros') }}" class="btn btn-card" style="background-color: #8F7570; border-color: #8F7570;">Macronutrientes</a>
+            {% if session.get('logueado') %}
+    <a href="{{ url_for('macros') }}" class="btn btn-card"style="background-color: #8F7570; border-color: #8F7570;">Macronutrientes </a>
+            {% endif %}
 
         </div>
     </div>

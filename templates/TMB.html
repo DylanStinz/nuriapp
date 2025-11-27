@@ -8,6 +8,20 @@
 
         <h2 class="text-center mb-4">Calculadora Tasa Metabólica Basal (TMB)</h2>
 
+         <p class="mt-3 text-center fs-5" style="color: #3e3a37;">
+           La Tasa Metabólica Basal (TMB) es la cantidad de calorías que tu cuerpo necesita para mantener sus funciones vitales mientras estás en reposo, como respirar, 
+           mantener la temperatura corporal y el funcionamiento del corazón y órganos. 
+            el gct (Gasto Calórico Total) incluye la TMB más las calorías quemadas a través de la actividad física y la digestión de los alimentos.
+        </p>
+            <p class="mt-3 text-center fs-5" style="color: #3e3a37;"> 
+                Hombres (Mifflin-St Jeor):
+TMB = (10 × peso en kg) + (6.25 × altura en cm) − (5 × edad en años) + 5
+</p>
+<p class="mt-3 text-center fs-5" style="color: #3e3a37;"> 
+Mujeres (Mifflin-St Jeor):
+TMB = (10 × peso en kg) + (6.25 × altura en cm) − (5 × edad en años) − 161
+            </p>
+
         <form method="POST">
             <div style="width: 100%; display: flex; justify-content: center; margin-top: 30px;">
                 <div style="width: 60%; display: flex; justify-content: space-between;">
@@ -39,6 +53,19 @@
                             <input type="number" name="altura" class="btn btn-card"
                                 style="width: 100%; background-color: #e0dad7;" placeholder="Altura (cm)">
                         </div>
+
+                        <div style="width: 48%;">
+                        <div style="margin-bottom: 15px;">
+                            <select name="actividad" class="btn btn-card" style="width: 100%; background-color: #e0dad7;">
+                                <option value="">Nivel de actividad</option>
+                                <option value="sedentario">Sedentario</option>
+                                <option value="ligero">Ligero</option>
+                                <option value="moderado">Moderado</option>
+                                <option value="activo">Activo</option>
+                                <option value="muy_activo">Muy activo</option>
+                            </select>
+                        </div>
+                    </div>
                     </div>
 
                 </div>
@@ -52,12 +79,16 @@
             </div>
         </form>
 
-        {% if tmb %}
-        <div class="mt-4 p-3 rounded" style="background-color:#e0dad7;">
-            <h5>Resultado:</h5>
-            <p><strong>TMB:</strong> {{ tmb }} calorías/día</p>
-        </div>
-        {% endif %}
+      {% if tmb %}
+<div class="mt-4 p-3 rounded" style="background-color:#e0dad7;">
+    <h5>Resultado:</h5>
+    <p><strong>TMB:</strong> {{ tmb }} calorías/día</p>
+    {% if gct %}
+        <p><strong>GCT:</strong> {{ gct }} calorías/día</p>
+    {% endif %}
+</div>
+{% endif %}
+
 
     </div>
 </section>

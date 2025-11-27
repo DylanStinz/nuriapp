@@ -77,24 +77,21 @@ def imc():
 
 @app.route("/tmb", methods=["GET", "POST"])
 def tmb():
+    tmb_value = None
+    gct_value = None
+
     if request.method == "POST":
         peso = float(request.form["peso"])
         altura = float(request.form["altura"])
         edad = int(request.form["edad"])
         sexo = request.form["sexo"]
-        if sexo == "hombre":
-            tmb_value = round((10*peso + 6.25*altura - 5*edad + 5),2)
-        else:
-            tmb_value = round((10*peso + 6.25*altura - 5*edad - 161),2)
-        return render_template("TMB.html", tmb=tmb_value)
-    return render_template("TMB.html")
-
-
-@app.route("/gct", methods=["GET", "POST"])
-def gct():
-    if request.method == "POST":
-        tmb = float(request.form["tmb"])
         actividad = request.form["actividad"]
+
+        if sexo.lower() == "hombre":
+            tmb_value = round(10*peso + 6.25*altura - 5*edad + 5, 2)
+        else:
+            tmb_value = round(10*peso + 6.25*altura - 5*edad - 161, 2)
+
         factores = {
             "sedentario": 1.2,
             "ligero": 1.375,
@@ -102,10 +99,12 @@ def gct():
             "activo": 1.725,
             "muy_activo": 1.9
         }
-        gct_value = round((tmb * factores[actividad]),2)
-        return render_template("gct.html", gct=gct_value)
-    return render_template("gct.html")
 
+        gct_value = round(tmb_value * factores[actividad], 2)
+
+        return render_template("TMB.html", tmb=tmb_value, gct=gct_value)
+
+    return render_template("TMB.html")
 
 @app.route("/peso_ideal", methods=["GET", "POST"])
 def peso_ideal():
@@ -117,6 +116,9 @@ def peso_ideal():
             ideal = 50 + 2.3 * (altura_in - 60)
         else:
             ideal = 45.5 + 2.3 * (altura_in - 60)
+        
+        ideal = round(ideal, 2) 
+        
         return render_template("peso_ideal.html", ideal=ideal)
     return render_template("peso_ideal.html")
 
@@ -138,7 +140,7 @@ def macros():
     return render_template("macros.html")
 
 
-@app.route('/usuario')
+
 @app.route('/usuario')
 def usuario():
     if not session.get("logueado"):

@@ -346,13 +346,6 @@ def mitYvrd():
 def consejos():
     return render_template('consejos.html')
 
-@app.route("/login")
-def inicio():
-    if session.get("logueado") == True:
-        return redirect(url_for('usuario'))
-    return render_template('login.html')
-
-
 @app.route("/validalogin", methods=["POST", "GET"])
 def validalogin():
     if request.method == "POST":

@@ -343,8 +343,8 @@ def logout():
     flash("Sesión cerrada correctamente.", "success")
     return redirect(url_for("index")) 
 
-@app.route("/api", methods=["GET", "POST"])
-def api():
+@app.route("/analiza", methods=["GET", "POST"])
+def anal():
     foods = []   
     query = None
 
@@ -366,6 +366,7 @@ def api():
                 response.raise_for_status()
                 data = response.json()
 
+          
                 foods = data.get("results", [])
 
                 if not foods:
@@ -374,9 +375,45 @@ def api():
             except requests.exceptions.RequestException:
                 flash("Error al conectar con la API.", "danger")
 
+    return render_template("analiza.html", foods=foods, query=query)
+
+
+@app.route("/api", methods=["GET", "POST"])
+def api():
+    foods = []   
+    query = None
+
+    if request.method == "POST":
+        query = request.form.get("query", "").strip()
+
+        if not query:
+            flash("Por favor, escribe un alimento para buscar.", "warning")
+        else:
+            params = {
+                "apiKey": API_KEY,
+                "query": query,
+                "number": 9
+            }
+
+            try:
+                response = requests.get(API_URL, params=params, timeout=10)
+                response.raise_for_status()
+                data = response.json()
+
+                results = data.get("results", [])
+                foods = []
+                for item in results:
+                    name = item.get("title") or item.get("name") or "Nombre no disponible"
+                    image = item.get("image", "")
+                    foods.append({"name": name, "image": image})
+
+                if not foods:
+                    flash(f"No se encontraron resultados para '{query}'.", "info")
+
+            except requests.exceptions.RequestException:
+                flash("Error al conectar con la API.", "danger")
+
     return render_template("apiresultado.html", foods=foods, query=query)
-
-
 
 
 @app.route("/apiresultado", methods=["GET", "POST"])

@@ -7,7 +7,7 @@
       <div class="card-body">
         <h4 class="card-title mb-3 text-center">Buscar alimento</h4>
 
-        <form method="post" action="{{ url_for('api') }}">
+        <form method="post" action="{{ url_for('anal') }}">
           <div class="input-group">
             <input type="text" name="query" class="form-control"
                    placeholder="Ej. chicken, pasta, salad"
@@ -27,19 +27,32 @@
     {% for food in foods %}
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card h-100 shadow-sm">
-    
+      
         <img src="{{ food.image or 'https://via.placeholder.com/400x200?text=Recipe' }}"
-             class="card-img-top" alt="{{ food.name }}">
+             class="card-img-top" alt="{{ food.title or food.name }}">
 
         <div class="card-body d-flex flex-column">
-          
-          <h5 class="card-title">{{ food.name }}</h5>
+        
+          <h5 class="card-title">{{ food.title or food.name }}</h5>
 
+          <p class="text-muted small mb-2">ID: {{ food.id or 'ID no disponible' }}</p>
+
+        
+          {% if food.nutrition and food.nutrition.nutrients %}
+          <ul class="small mb-3">
+            {% for n in food.nutrition.nutrients[:4] %}
+              <li>{{ n.name }}: {{ n.amount }} {{ n.unit }}</li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="text-muted small mb-0">
+            No hay información nutrimental detallada disponible.
+          </p>
+          {% endif %}
         </div>
       </div>
     </div>
     {% endfor %}
   </div>
 {% endif %}
-
 {% endblock %}

@@ -30,8 +30,9 @@
 
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-              <a class="nav-link text-dark fw-semibold" href="/api">buscar</a>
+      
               </li>
+              
               <li class="nav-item">
                 <a class="nav-link text-dark fw-semibold" href="/calcula">Calculadora</a>
               </li>
@@ -39,10 +40,12 @@
 
               {% if session.get('logueado') %}
               <a class="nav-link text-dark fw-semibold" href="{{ url_for('logout') }}">Cerrar Sesión</a>
+              <a class="nav-link text-dark fw-semibold" href="/analiza">analizador de platos</a>
               <a class="nav-link text-dark fw-semibold" href="{{ url_for('usuario') }}">Perfil de usuario</a>
               <span class="nav-link text-dark fw-semibold">Hola {{ session.get('usuario_nombre') }}</span>
               {% else %}
               <a class="nav-link text-dark fw-semibold" href="{{ url_for('crear') }}">Registrarse</a>
+                 <a class="nav-link text-dark fw-semibold" href="/api">buscar</a>
               <a class="nav-link text-dark fw-semibold" href="{{ url_for('inicio') }}">Iniciar sesión</a>
               {% endif %}
 

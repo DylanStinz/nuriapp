@@ -151,9 +151,25 @@ def macros():
 
 @app.route('/usuario')
 def usuario():
-    if not session.get("logueado"):
-        return redirect(url_for("inicio")) 
-    return render_template('usuario.html')
+    if 'usuario_id' not in session:
+        flash('Debes iniciar sesión.', 'warning')
+        return redirect(url_for('inicio'))
+
+    usuario_id = session['usuario_id']
+
+    cur = mysql.connection.cursor()
+    cur.execute("""
+        SELECT p1, p2, p3, p4, p5
+        FROM preguntas
+        WHERE usuario_id = %s
+        ORDER BY id DESC
+        LIMIT 1
+    """, (usuario_id,))
+    respuestas = cur.fetchone()
+    cur.close()
+
+    return render_template('usuario.html', respuestas=respuestas)
+
 
 @app.route("/crear", methods=["GET", "POST"])
 def crear():
@@ -207,59 +223,107 @@ def crear():
     return render_template("crear.html")
 
 
-@app.route("/pregunta1", methods=["GET", "POST"])
+@app.route('/pregunta1', methods=['GET', 'POST'])
 def pregunta1():
-    if request.method == "POST":
-        respuesta = request.form.get("pregunta1")
+    if 'usuario_id' not in session:
+        flash('Primero inicia sesión.', 'warning')
+        return redirect(url_for('inicio'))
+    if request.method == 'POST':
+        respuesta = request.form.get('pregunta1')
         if not respuesta:
-            flash("Debe seleccionar una opción antes de continuar.", "error")
-            return redirect(url_for("pregunta1"))
-        return redirect(url_for("pregunta2"))
-    return render_template("pregunta1.html")
+            flash('Selecciona una opción para continuar.', 'danger')
+            return redirect(url_for('pregunta1'))
+        session['p1'] = respuesta
+        return redirect(url_for('pregunta2'))
+
+    return render_template('pregunta1.html')
 
 
-@app.route("/pregunta2", methods=["GET", "POST"])
+
+@app.route('/pregunta2', methods=['GET', 'POST'])
 def pregunta2():
-    if request.method == "POST":
-        respuesta2 = request.form.get("pregunta2")
-        if not respuesta2:
-            flash("Debe seleccionar una opción antes de continuar.", "error")
-            return redirect(url_for("pregunta2"))
-        return redirect(url_for("pregunta3"))
-    return render_template("pregunta2.html")
+    if 'usuario_id' not in session:
+        flash('Primero inicia sesión.', 'warning')
+        return redirect(url_for('inicio'))
+    if request.method == 'POST':
+        respuesta = request.form.get('pregunta2')
+        if not respuesta:
+            flash('Selecciona una opción para continuar.', 'danger')
+            return redirect(url_for('pregunta2'))
+        session['p2'] = respuesta
+        return redirect(url_for('pregunta3'))
+
+    return render_template('pregunta2.html')
 
 
-@app.route("/pregunta3", methods=["GET", "POST"])
+
+@app.route('/pregunta3', methods=['GET', 'POST'])
 def pregunta3():
-    if request.method == "POST":
-        respuesta3 = request.form.get("pregunta3")
-        if not respuesta3:
-            flash("Debe seleccionar una opción antes de continuar.", "error")
-            return redirect(url_for("pregunta3"))
-        return redirect(url_for("pregunta4"))
-    return render_template("pregunta3.html")
+    if 'usuario_id' not in session:
+        flash('Primero inicia sesión.', 'warning')
+        return redirect(url_for('inicio'))
+    if request.method == 'POST':
+        respuesta = request.form.get('pregunta3')
+        if not respuesta:
+            flash('Selecciona una opción para continuar.', 'danger')
+            return redirect(url_for('pregunta3'))
+        session['p3'] = respuesta
+        return redirect(url_for('pregunta4'))
+
+    return render_template('pregunta3.html')
 
 
-@app.route("/pregunta4", methods=["GET", "POST"])
+
+@app.route('/pregunta4', methods=['GET', 'POST'])
 def pregunta4():
-    if request.method == "POST":
-        respuesta4 = request.form.get("pregunta4")
-        if not respuesta4:
-            flash("Debe seleccionar una opción antes de continuar.", "error")
-            return redirect(url_for("pregunta4"))
-        session["respuesta_pregunta4"] = respuesta4
-        return redirect(url_for("pregunta5"))  
-    return render_template("pregunta4.html")
+    if 'usuario_id' not in session:
+        flash('Primero inicia sesión.', 'warning')
+        return redirect(url_for('inicio'))
+    if request.method == 'POST':
+        respuesta = request.form.get('pregunta4')
+        if not respuesta:
+            flash('Selecciona una opción para continuar.', 'danger')
+            return redirect(url_for('pregunta4'))
+        session['p4'] = respuesta
+        return redirect(url_for('pregunta5'))
 
-@app.route("/pregunta5", methods=["GET", "POST"])
+    return render_template('pregunta4.html')
+
+
+@app.route('/pregunta5', methods=['GET', 'POST'])
 def pregunta5():
-    if request.method == "POST":
-        respuesta5 = request.form.get("pregunta5")
-        if not respuesta5:
-            flash("Debe seleccionar una opción antes de continuar.", "error")
-            return redirect(url_for("pregunta5"))
-        return redirect(url_for("index")) 
-    return render_template("pregunta5.html")
+    if 'usuario_id' not in session:
+        flash('Primero inicia sesión.', 'warning')
+        return redirect(url_for('inicio'))
+    if request.method == 'POST':
+        respuesta = request.form.get('pregunta5')
+        if not respuesta:
+            flash('Selecciona una opción para continuar.', 'danger')
+            return redirect(url_for('pregunta5'))
+        session['p5'] = respuesta
+        p1 = session.get('p1')
+        p2 = session.get('p2')
+        p3 = session.get('p3')
+        p4 = session.get('p4')
+        p5 = session.get('p5')
+        usuario_id = session['usuario_id']
+        if not all([p1, p2, p3, p4, p5]):
+            flash('Faltan respuestas, vuelve a comenzar la encuesta.', 'danger')
+            return redirect(url_for('pregunta1'))
+        cur = mysql.connection.cursor()
+        cur.execute("""
+            INSERT INTO preguntas (usuario_id, p1, p2, p3, p4, p5)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """, (usuario_id, p1, p2, p3, p4, p5))
+        mysql.connection.commit()
+        cur.close()
+        for clave in ['p1', 'p2', 'p3', 'p4', 'p5']:
+            session.pop(clave, None)
+        flash('Respuestas guardadas correctamente.', 'success')
+        return redirect(url_for('usuario'))
+
+    return render_template('pregunta5.html')
+
 
 @app.route("/descarg")
 def pdf():
@@ -305,6 +369,8 @@ def validalogin():
 
         if usuario:
             if check_password_hash(usuario["password_hash"], passwor):
+
+                session["usuario_id"] = usuario["id"]      
                 session["usuario_email"] = usuario["correo"]
                 session["usuario_nombre"] = usuario["nombre"] + " " + usuario["apellido"]
                 session["peso"] = usuario["actual"]
@@ -313,6 +379,7 @@ def validalogin():
                 session["act"] = usuario.get("nivel_actividad") if isinstance(usuario, dict) else None
                 session["obj"] = usuario.get("objetivo_salud") if isinstance(usuario, dict) else None
                 session["logueado"] = True
+
                 return redirect(url_for("usuario"))
             else:
                 flash("Contraseña incorrecta", "error")
@@ -336,6 +403,7 @@ def validalogin():
             flash("El usuario no está registrado", "error")
 
     return redirect(url_for("inicio"))
+
 
 @app.route("/logout")
 def logout():

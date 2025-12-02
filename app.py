@@ -352,6 +352,7 @@ def inicio():
         return redirect(url_for('usuario'))
     return render_template('login.html')
 
+
 @app.route("/validalogin", methods=["POST", "GET"])
 def validalogin():
     if request.method == "POST":
@@ -412,20 +413,20 @@ def logout():
 
 @app.route("/analiza", methods=["GET", "POST"])
 def anal():
-    foods = []   
+    foods = []   # Lista para almacenar resultados
     query = None
 
     if request.method == "POST":
-        query = request.form.get("query", "").strip()
+        query = request.form.get("query", "").strip()  # Obtener búsqueda
 
         if not query:
             flash("Por favor, escribe un alimento para buscar.", "warning")
         else:
             params = {
-                "apiKey": API_KEY,          
-                "query": query,
-                "number": 9,                
-                "addRecipeNutrition": True  
+                "apiKey": API_KEY,          # API key
+                "query": query,             # Alimento a buscar
+                "number": 9,                # Número máximo de resultados
+                "addRecipeNutrition": True  # Incluir información nutricional
             }
 
             try:
@@ -433,8 +434,34 @@ def anal():
                 response.raise_for_status()
                 data = response.json()
 
-          
-                foods = data.get("results", [])
+                results = data.get("results", [])
+
+                for item in results:
+                    try:
+                        nutrients = item.get("nutrition", {}).get("nutrients", [])
+
+                        calories = nutrients[0]["amount"]
+                        fat = nutrients[1]["amount"]
+                        saturated = nutrients[2]["amount"]
+                        carbs = nutrients[3]["amount"]
+
+                        # Evaluación rápida de salud
+                        healthy = (
+                            calories < 650 and
+                            fat < 25 and
+                            saturated < 8 and
+                            carbs < 70
+                        )
+                    except:
+                        healthy = None
+
+                    foods.append({
+                        "id": item.get("id"),
+                        "title": item.get("title"),
+                        "image": item.get("image"),
+                        "nutrition": item.get("nutrition"),
+                        "healthy": healthy
+                    })
 
                 if not foods:
                     flash(f"No se encontraron resultados para '{query}'.", "info")

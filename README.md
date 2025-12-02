@@ -109,6 +109,11 @@ Y después de algunas preguntas descubriendo como se siente la persona respecto 
 Aun que es más difícil de implementar a una app no es imposible y nuestra propuesta es que de alguna forma podamos incluir no solo un plan de registro de base de datos si no que también nos gustaría añadir un apartado de atención personalizada para el usuario e implementando todos los puntos buenos de las apps que analizamos rescatando lo mejor de cada una
 En conclusión. Hoy en día casi todos los alimentos son ultra procesados y estos a la larga nos harán daño aun que no lo notemos como enfermedades que son tan comunes en México como lo son la diabetes o el azúcar alta. Siendo que con nuestra app esperamos poder combatir contra algunos de estos problemas ya no solo físicos si no que también emocionales 
 
+## **ACTUALIZACION**
+
+Hemos cambiado de api, este cambio lo vimos necesario ya que nuestra anterior API nos limitaba varias opciones por ejemplo no teniamos imagenes y su informacion era bastante limitada
+Esta nueva API se llama Spoonacular, esta nos ofrece lo anterior que nos faltaba haciendo que nuestra pagina sea mucho mas dinamica y completa
+
 
 
 

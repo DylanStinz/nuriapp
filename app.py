@@ -413,20 +413,20 @@ def logout():
 
 @app.route("/analiza", methods=["GET", "POST"])
 def anal():
-    foods = []   # Lista para almacenar resultados
+    foods = []   
     query = None
 
     if request.method == "POST":
-        query = request.form.get("query", "").strip()  # Obtener búsqueda
+        query = request.form.get("query", "").strip()
 
         if not query:
             flash("Por favor, escribe un alimento para buscar.", "warning")
         else:
             params = {
-                "apiKey": API_KEY,          # API key
-                "query": query,             # Alimento a buscar
-                "number": 9,                # Número máximo de resultados
-                "addRecipeNutrition": True  # Incluir información nutricional
+                "apiKey": API_KEY,         
+                "query": query,            
+                "number": 9,              
+                "addRecipeNutrition": True 
             }
 
             try:
@@ -445,7 +445,6 @@ def anal():
                         saturated = nutrients[2]["amount"]
                         carbs = nutrients[3]["amount"]
 
-                        # Evaluación rápida de salud
                         healthy = (
                             calories < 650 and
                             fat < 25 and

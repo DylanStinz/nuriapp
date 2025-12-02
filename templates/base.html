@@ -12,7 +12,8 @@
 
 <body style="background-color: #e0dad7">
   <main class="container">
-    <header class="text-dark py-4 mb-4 rounded shadow-sm" style="background: linear-gradient(100deg, #e0dad7, #b7aba4);">
+    <header class="text-dark py-4 mb-4 rounded shadow-sm"
+      style="background: linear-gradient(100deg, #e0dad7, #b7aba4);">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
           <a href="/" class="navbar-brand d-flex align-items-center">
@@ -30,9 +31,9 @@
 
           <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
-      
+
               </li>
-              
+
               <li class="nav-item">
                 <a class="nav-link text-dark fw-semibold" href="/calcula">Calculadora</a>
               </li>
@@ -45,7 +46,7 @@
               <span class="nav-link text-dark fw-semibold">Hola {{ session.get('usuario_nombre') }}</span>
               {% else %}
               <a class="nav-link text-dark fw-semibold" href="{{ url_for('crear') }}">Registrarse</a>
-                 <a class="nav-link text-dark fw-semibold" href="/api">buscar</a>
+              <a class="nav-link text-dark fw-semibold" href="/api">buscar</a>
               <a class="nav-link text-dark fw-semibold" href="{{ url_for('inicio') }}">Iniciar sesión</a>
               {% endif %}
 
@@ -55,17 +56,38 @@
 
       </nav>
 
-      <div class="mt-3">
-        <img src="{{ url_for('static', filename='image/1.jpg') }}" alt="portada" class="img-fluid w-100 rounded"
-          style="height: 400px; object-fit: cover" />
-      </div>
     </header>
     {%block contenido%}
+
+    <div class="mt-3">
+      <img src="{{ url_for('static', filename='image/1.jpg') }}" alt="portada" class="img-fluid w-100 rounded"
+        style="height: 400px; object-fit: cover" />
+    </div>
+
+    <div class="text-center mt-4">
+      <div class="p-4 rounded-4 shadow-sm d-inline-block">
+        <h2 class="mb-2" style="
+          font-family: 'Times New Roman', serif;
+          font-style: italic;
+          font-weight: 600;
+          color: #3e3a37;
+          font-size: 2rem;
+        ">
+          Pequeños cambios, grandes resultados
+        </h2>
+        <div class="mx-auto rounded" style="width: 140px; height: 4px; background-color:#8F7570;">
+        </div>
+      </div>
+
+    </div>
+
+
     <section class="py-5">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10">
-            <div class="card shadow-lg border-0 rounded-4 overflow-hidden" style="background: linear-gradient(20deg, #e0dad7, #b7aba4);">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden"
+              style="background: linear-gradient(20deg, #e0dad7, #b7aba4);">
               <div class="row g-0 align-items-center">
                 <div class="col-md-7">
                   <div class="card-body p-4 text-center text-md-start">
@@ -104,7 +126,8 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-12 col-lg-10">
-            <div class="card shadow-lg border-0 rounded-4 overflow-hidden" style="background: linear-gradient(150deg, #e0dad7, #b7aba4);">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden"
+              style="background: linear-gradient(150deg, #e0dad7, #b7aba4);">
               <div class="row g-0 align-items-center">
                 <div class="col-md-5">
                   <img src="{{ url_for('static', filename='image/10.webp') }}" class="img-fluid h-100 w-100"
@@ -153,9 +176,10 @@
               <img src="{{ url_for('static', filename='image/11.png') }}" alt="Entradas" class="rounded-start-4"
                 style="width: 50%; height: 160px; object-fit: cover;">
               <div class="card-body text-center">
-               <a class="btn fw-semibold w-100" href="/calcula" style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
-  Calculadoras
-</a>
+                <a class="btn fw-semibold w-100" href="/calcula"
+                  style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
+                  Calculadoras
+                </a>
               </div>
             </div>
           </div>
@@ -165,8 +189,7 @@
               <img src="{{ url_for('static', filename='image/12.png') }}" alt="Platos principales"
                 class="rounded-start-4" style="width: 55%; height: 160px; object-fit: cover;">
               <div class="card-body text-center">
-                <button class="btn fw-semibold w-100"
-                href="/api"
+                <button class="btn fw-semibold w-100" href="/api"
                   style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
                   Recetario
                 </button>
@@ -179,24 +202,24 @@
               <img src="{{ url_for('static', filename='image/13.png') }}" alt="Aperitivos" class="rounded-start-4"
                 style="width: 45%; height: 160px; object-fit: cover;">
               <div class="card-body text-center">
-               <a class="btn fw-semibold w-100"
-                 href="/vm"
-              style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
-              mitos y verdades
-              </a>
+                <a class="btn fw-semibold w-100" href="/vm"
+                  style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
+                  mitos y verdades
+                </a>
               </div>
             </div>
           </div>
 
           <div class="card shadow-sm border-0 rounded-4" style="background-color: #b7aba4; min-width: 300px;">
             <div class="d-flex align-items-center">
-              <img src="{{ url_for('static', filename='image/14.png') }}" alt="Bebidas" class="rounded-start-4"
+              <img src="{{ url_for('static', filename='image/14.png') }}" alt="Manual" class="rounded-start-4"
                 style="width: 45%; height: 160px; object-fit: cover;">
               <div class="card-body text-center">
-                <button class="btn fw-semibold w-100"
-                  style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
-                  Guías
-                </button>
+                <a href="{{ url_for('manual') }}" class="btn fw-semibold w-100" style="background-color: #b7aba4; 
+                border-color: #b7aba4; 
+                color: black;">
+                  Manual de usuario
+                </a>
               </div>
             </div>
           </div>
@@ -214,11 +237,10 @@
               <img src="{{ url_for('static', filename='image/15.png') }}" alt="Entradas" class="rounded-start-4"
                 style="width: 45%; height: 160px; object-fit: cover;">
               <div class="card-body text-center">
-               <a class="btn fw-semibold w-100"
-                 href="/hidra"
-              style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
-              hidratacion
-              </a>
+                <a class="btn fw-semibold w-100" href="/hidra"
+                  style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
+                  hidratacion
+                </a>
               </div>
             </div>
           </div>
@@ -229,27 +251,25 @@
               <img src="{{ url_for('static', filename='image/16.png') }}" alt="Platos principales"
                 class="rounded-start-4" style="width: 45%; height: 140px; object-fit: cover;">
               <div class="card-body text-center">
-                  <a class="btn fw-semibold w-100"
-                 href="/descarg"
-              style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
-              Recursos Descargables
-              </a>
+                <a class="btn fw-semibold w-100" href="/descarg"
+                  style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
+                  Recursos Descargables
+                </a>
               </div>
             </div>
           </div>
 
-           
+
 
           <div class="card shadow-sm border-0 rounded-4" style="background-color: #b7aba4; min-width: 300px;">
             <div class="d-flex align-items-center">
               <img src="{{ url_for('static', filename='image/17.png') }}" alt="Aperitivos" class="rounded-start-4"
                 style="width: 45%; height: 160px; object-fit: cover;">
               <div class="card-body text-center">
-                  <a class="btn fw-semibold w-100"
-                 href="/recetas"
-              style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
-               Recetas "para principiantes"
-              </a>
+                <a class="btn fw-semibold w-100" href="/recetas"
+                  style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
+                  Recetas "para principiantes"
+                </a>
               </div>
             </div>
           </div>
@@ -259,11 +279,10 @@
               <img src="{{ url_for('static', filename='image/18.png') }}" alt="Bebidas" class="rounded-start-4"
                 style="width: 45%; height: 160px; object-fit: cover;">
               <div class="card-body text-center">
-                <a class="btn fw-semibold w-100"
-                 href="/consejos"
-              style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
-              consejos
-              </a>
+                <a class="btn fw-semibold w-100" href="/consejos"
+                  style="background-color: #b7aba4; border-color: #b7aba4; color: black;">
+                  consejos
+                </a>
               </div>
             </div>
           </div>
@@ -312,6 +331,7 @@
           <a href="#" class="text-dark mx-3">Contacto</a>
         </div>
         <p class="small mb-0">Tu guía para una alimentación saludable y consciente</p>
+        <p>Pequeños cambios, grandes resultados</p>
       </div>
     </footer>
   </main>

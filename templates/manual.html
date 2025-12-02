@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+<br><br>
+
+<section class="container">
+
+    <div class="p-4 mb-4 rounded-4 shadow-sm"
+         style="background: linear-gradient(120deg, #b7aba4, #e0dad7);">
+        <h2 class="fw-bold text-dark mb-1">Manual de Usuario — FITBITE</h2>
+        <p class="text-dark mb-0">
+            Una guía completa para nuevos usuarios: aprende a navegar la plataforma, usar las herramientas
+            y aprovechar al máximo todas las funciones que FITBITE ofrece.
+        </p>
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 mb-4"
+         style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+        <div class="card-body p-4">
+
+            <h4 class="fw-bold text-dark">Bienvenido a FITBITE</h4>
+            <p class="text-dark">
+                Este manual ha sido creado para ayudarte a comprender y utilizar cada una de las funciones
+                disponibles en la plataforma. Ya seas un usuario nuevo o alguien que busca aprovechar
+                todas las herramientas, aquí encontrarás explicaciones claras, pasos sencillos y consejos
+                prácticos para navegar FITBITE sin complicaciones.
+            </p>
+
+            <p>
+                Dentro de esta guía podrás aprender:
+            </p>
+
+            <ul class="text-dark">
+                <li>Cómo crear y gestionar tu cuenta.</li>
+                <li>Cómo usar la calculadora de IMC y análisis corporal.</li>
+                <li>Cómo consultar alimentos desde el buscador nutricional.</li>
+                <li>Cómo leer los datos nutrimentales obtenidos.</li>
+                <li>Cómo acceder a recursos adicionales de salud.</li>
+            </ul>
+
+            <p class="mb-0 text-dark">
+                Además, te recordamos que FITBITE está diseñada para ser una herramienta simple,
+                visual y accesible, por lo que este manual será tu mejor aliado si deseas entender
+                cada parte de la plataforma.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100"
+                style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold text-dark">Acceso rápido</h5>
+                    <p class="text-dark">
+                        Aprende a comenzar sesión, recuperar tu contraseña y gestionar tus datos personales desde tu perfil.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100"
+                style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold text-dark">Herramientas principales</h5>
+                    <p class="text-dark">
+                        Calculadoras, buscador de alimentos y secciones de educación nutricional explicadas paso a paso.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100"
+                style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold text-dark">Recomendaciones</h5>
+                    <p class="text-dark">
+                        Consejos prácticos para mejorar tu experiencia en la plataforma y mantener un estilo de vida saludable.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="card border-0 shadow-sm rounded-4 mb-4"
+        style="background: linear-gradient(200deg, #e0dad7, #b7aba4);">
+        <div class="card-body p-4">
+            <h3 class="fw-bold mb-3">Guía descargable en PDF</h3>
+            <p class="text-muted">
+                Aquí puedes consultar o descargar la guía completa de rutinas y recomendaciones.
+            </p>
+
+            <div class="border rounded-3 overflow-hidden">
+                <iframe src="{{ url_for('static', filename='pdf/pdf2.pdf') }}"
+                        width="100%" height="600px" style="border:0;">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<br><br>
+
+{% endblock %}

@@ -346,6 +346,10 @@ def mitYvrd():
 def consejos():
     return render_template('consejos.html')
 
+@app.route("/manual")
+def manual():
+    return render_template("manual.html")
+
 @app.route("/login")
 def inicio():
     if session.get("logueado") == True:
